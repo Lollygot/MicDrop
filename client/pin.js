@@ -7,12 +7,13 @@ import {
   StyleSheet,
   Button,
   Linking,
+  TouchableWithoutFeedback,
 } from "react-native";
 
-export default function Pin({ profile }) {
-  const [showPopup, setShowPopup] = useState(false);
+export default function Pin({ profile, isActive, onPress }) {
+  // const [showPopup, setShowPopup] = useState(false);
 
-  const handlePress = () => setShowPopup(!showPopup);
+  // const handlePress = () => setShowPopup(!showPopup);
   const openLink = (url) => url && Linking.openURL(url);
 
   const pinColors = {
@@ -30,45 +31,32 @@ export default function Pin({ profile }) {
     </>
   );
 
-const SpotifyCard = () => (
-  <View style={styles.spotifyCard}>
-    <View style={styles.spotifyTextBlock}>
-      <Text numberOfLines={1} style={styles.trackRow}>
-        <Text style={styles.trackName}>{profile.trackName}</Text>
-        <Text style={styles.separator}> • </Text>
-        <Text style={styles.artistName}>{profile.trackArtist}</Text>
-      </Text>
-      <View style={styles.previewWrapper}>
-        <Text style={styles.playPreview} onPress={() => openLink(profile.spotifyTrackUrl)}>
-          ▶️ Preview
+  const SpotifyCard = () => (
+    <View style={styles.spotifyCard}>
+      <View style={styles.spotifyTextBlock}>
+        <Text numberOfLines={1} style={styles.trackRow}>
+          <Text style={styles.trackName}>{profile.trackName}</Text>
+          <Text style={styles.separator}> • </Text>
+          <Text style={styles.artistName}>{profile.trackArtist}</Text>
         </Text>
+        <View style={styles.previewWrapper}>
+          <Text
+            style={styles.playPreview}
+            onPress={() => openLink(profile.spotifyTrackUrl)}
+          >
+            ▶️ Preview
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
-);
-
-/*
-   1. Install WebView:
-      expo install react-native-webview
-   2. Then use this instead of the simulated card:
-
-   import { WebView } from 'react-native-webview';
-
-   const SpotifyCard = () => (
-     <WebView
-       source={{ uri: profile.spotifyTrackUrl }}
-       style={{ width: 300, height: 80, borderRadius: 10 }}
-     />
-   );
-*/
+  );
 
   const renderPopupContent = () => {
     if (profile.profileType === "busker") {
       return (
         <>
           <Header />
-
-            {profile.about && (
+          {profile.about && (
             <Text style={styles.about}>
               <Text style={styles.aboutLabel}>About me: </Text>
               {profile.about}
@@ -85,8 +73,10 @@ const SpotifyCard = () => (
       return (
         <>
           <Header />
-          <Text style={[styles.info, { fontSize: 17, fontWeight: "bold"}] }>🎤 Artist: {profile.artistPlaying}</Text>
-          <Text style={styles.info}> Doors: {profile.doors}</Text>
+          <Text style={[styles.info, { fontSize: 17, fontWeight: "bold" }]}>
+            🎤 Artist: {profile.artistPlaying}
+          </Text>
+          <Text style={styles.info}>Doors: {profile.doors}</Text>
           <Text style={styles.info}>📍 {profile.address}</Text>
           {profile.trackCover && <SpotifyCard />}
           {profile.ticketLink && (
@@ -95,8 +85,8 @@ const SpotifyCard = () => (
             </Text>
           )}
           {profile.bannerImage && (
-  <Image source={{ uri: profile.bannerImage }} style={styles.banner} />
-)}
+            <Image source={{ uri: profile.bannerImage }} style={styles.banner} />
+          )}
         </>
       );
     }
@@ -105,58 +95,76 @@ const SpotifyCard = () => (
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handlePress}>
+    <View style={styles.pinContainer}>
+      <TouchableOpacity onPress={onPress}>
         <Image source={{ uri: pinUrl }} style={styles.pin} />
       </TouchableOpacity>
-      {showPopup && <View style={styles.popup}>{renderPopupContent()}</View>}
+
+      {isActive && (
+        <View style={styles.popupOverlay}>
+          <View style={styles.popup}>{renderPopupContent()}</View>
+        </View>
+      )}
     </View>
   );
+
 }
 
 const styles = StyleSheet.create({
-  container: {
+  pinContainer: {
     alignItems: "center",
     justifyContent: "center",
+    position: "relative",
+    marginBottom: 30,
   },
+
   pin: {
-    width: 50, 
-    height: 50, 
+    width: 50,
+    height: 50,
   },
   popup: {
-    position: "absolute",
-    bottom: 80,
-    backgroundColor: "#c99e4b",
+    backgroundColor: "rgba(230, 195, 109, 0.5)",
     padding: 12,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ccc",
-    elevation: 4,
     alignItems: "center",
     width: 260,
   },
+
+  popupOverlay: {
+    position: "absolute",
+    bottom: 60,
+    zIndex: 999,
+    alignItems: "center",
+  },
+
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginBottom: 6,
   },
+
   name: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 6,
   },
+
   info: {
     fontSize: 17,
     textAlign: "center",
     marginVertical: 3,
   },
+
   link: {
     fontSize: 17,
     color: "#007aff",
     textDecorationLine: "underline",
     marginTop: 6,
   },
+
   spotifyCard: {
     flexDirection: "row",
     alignItems: "center",
@@ -202,27 +210,31 @@ const styles = StyleSheet.create({
     color: "#1DB954",
     textDecorationLine: "underline",
   },
+
   banner: {
-  width: "100%",
-  height: 100,
-  borderRadius: 8,
-  marginTop: 8,
-  objectFit: "cover", // won't apply in react native
-},
-about: {
-  fontSize: 17,
-  color: "#444",
-  marginTop: 6,
-  marginBottom: 8,
-  textAlign: "center",
-  paddingHorizontal: 8,
-},
-aboutLabel: {
-  fontWeight: "bold",
-  color: "#222",
-},
-previewWrapper: {
-  alignItems: "center", // centers the preview horizontally
-  marginTop: 4,
-}
+    width: "100%",
+    height: 100,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+
+  about: {
+    fontSize: 17,
+    color: "#444",
+    marginTop: 6,
+    marginBottom: 8,
+    textAlign: "center",
+    paddingHorizontal: 8,
+  },
+
+  aboutLabel: {
+    fontWeight: "bold",
+    color: "#222",
+  },
+
+  previewWrapper: {
+    alignItems: "center",
+    marginTop: 4,
+  },
 });
+
