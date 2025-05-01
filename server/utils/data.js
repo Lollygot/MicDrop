@@ -7,23 +7,25 @@ import { finished } from "stream/promises";
  *
  * CSVData should be in the format:
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      "header1": "value1",
+ *      "header2": "value2",
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
  *
  * data should be in the format:
  *
- * ["...", "...", "..."]
+ * {
+ *    "header1": "value1",
+ *    "header2": "value2",
+ *    ...
+ * }
  */
 export function appendCSVData(data, CSVData) {
-  return {
-    ...CSVData,
-    data: [...CSVData.data, data],
-  };
+  return [...CSVData, data];
 }
 
 /**
@@ -31,13 +33,14 @@ export function appendCSVData(data, CSVData) {
  *
  * CSVData should be in the format:
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      "header1": "value1",
+ *      "header2": "value2",
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
  *
  * Returns:
  *
@@ -48,10 +51,19 @@ export function appendCSVData(data, CSVData) {
  * ]
  */
 export function convertCSVDataToWriteableFormat(CSVData) {
-  let writeableCSVFormat = [CSVData.header.join(",")];
-  CSVData.data.forEach((row) => {
-    writeableCSVFormat.push(row.join(","));
+  let writeableCSVFormat = [];
+
+  let headers = Object.keys(CSVData[0]);
+  writeableCSVFormat.push(headers.join(","));
+
+  CSVData.forEach((row) => {
+    let newRow = [];
+    headers.forEach((header) => {
+      newRow.push(row[header]);
+    });
+    writeableCSVFormat.push(newRow.join(","));
   });
+
   return writeableCSVFormat;
 }
 

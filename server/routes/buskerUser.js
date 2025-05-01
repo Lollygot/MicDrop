@@ -7,13 +7,21 @@ const router = Router();
 /**
  * Get all busker user data
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      "username": "...",
+ *      "firstName": "...",
+ *      "lastName": "...",
+ *      "email": "...",
+ *      "image": "..."
+ *    },
+ *    {
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
+ *
+ * image may be an empty string
  */
 router.get("/", async (_req, res) => {
   getBuskerUserData()

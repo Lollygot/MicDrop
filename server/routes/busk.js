@@ -7,13 +7,23 @@ const router = Router();
 /**
  * Get all busk data
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      username: "...",
+ *      date: "YYYY-MM-DD",
+ *      time: "HH:MM:SS",
+ *      duation: 120,
+ *      streetAddress: "...",
+ *      city: "...",
+ *      postCode: "..."
+ *    },
+ *    {
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
+ *
+ * duration is in minutes
  */
 router.get("/", async (_req, res) => {
   getBuskData().then((data) => {

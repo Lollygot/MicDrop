@@ -7,13 +7,19 @@ const router = Router();
 /**
  * Get all user data
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      username: "...",
+ *      password: "...",
+ *      type: "..."
+ *    },
+ *    {
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
+ *
+ * type can only be "BUSKER" or "VENUE"
  */
 router.get("/", async (_req, res) => {
   getUserData().then((data) => {

@@ -1,4 +1,4 @@
-import { getUserData } from "./user.js";
+import { addUser } from "./user.js";
 import {
   appendCSVData,
   convertCSVDataToWriteableFormat,
@@ -22,76 +22,43 @@ export async function addBuskerUser(
   image
 ) {
   let buskerUserData = await getBuskerUserData();
-
-  let newBuskerUserRow = [];
-  buskerUserData.header.forEach((headerValue) => {
-    switch (headerValue) {
-      case "username": {
-        newBuskerUserRow.push(username);
-        break;
-      }
-      case "firstName": {
-        newBuskerUserRow.push(firstName);
-        break;
-      }
-      case "lastName": {
-        newBuskerUserRow.push(lastName);
-        break;
-      }
-      case "email": {
-        newBuskerUserRow.push(email);
-        break;
-      }
-      case "image": {
-        newBuskerUserRow.push(image);
-        break;
-      }
-    }
-  });
-
   await writeCSVData(
     "./data/buskerUser.csv",
     convertCSVDataToWriteableFormat(
-      appendCSVData(newBuskerUserRow, buskerUserData)
+      appendCSVData(
+        {
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          image: image,
+        },
+        buskerUserData
+      )
     )
   );
 
-  let userData = await getUserData();
-
-  let newUserRow = [];
-  userData.header.forEach((headerValue) => {
-    switch (headerValue) {
-      case "username": {
-        newUserRow.push(username);
-        break;
-      }
-      case "password": {
-        newUserRow.push(password);
-        break;
-      }
-      case "type": {
-        newUserRow.push("BUSKER");
-        break;
-      }
-    }
-  });
-
-  await writeCSVData(
-    "./data/user.csv",
-    convertCSVDataToWriteableFormat(appendCSVData(newUserRow, userData))
-  );
+  await addUser(username, password, "BUSKER");
 }
 
 /**
  * Get all busker user data
  *
- * {
- *    "header": ["...", "...", ...],
- *    "data": [
- *      ["...", "...", ...],
+ * [
+ *    {
+ *      "username": "...",
+ *      "firstName": "...",
+ *      "lastName": "...",
+ *      "email": "...",
+ *      "image": "..."
+ *    },
+ *    {
  *      ...
- *    ]
- * }
+ *    },
+ *    ...
+ * ]
+ *
+ * image may be an empty string
  */
 export async function getBuskerUserData() {
   return parseCSVData(await getCSVData("./data/buskerUser.csv"));

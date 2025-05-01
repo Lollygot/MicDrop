@@ -1,2 +1,2 @@
-venueName,name,artistName,date,time,price,ticketLink,eventImage,artistSpotify
-The Biggest Venue,The Best Event,The Best Artist,2025-05-01,16:00:00,25.00,https://ticketmaster.com/some-ticket,http://images.com/event,https://spotify.com/some-artist
+venueName,name,artistName,date,time,duration,price,ticketLink,eventImage,artistSpotify
+The Biggest Venue,The Best Event,The Best Artist,2025-05-01,16:00:00,120,25.00,https://ticketmaster.com/some-ticket,http://images.com/event,https://spotify.com/some-artist

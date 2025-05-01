@@ -10,6 +10,8 @@ const PORT = 8888;
 
 const app = express();
 
+app.use(express.json());
+
 app.use("/busk", buskRouter);
 app.use("/buskerUser", buskerUserRouter);
 app.use("/event", eventRouter);
