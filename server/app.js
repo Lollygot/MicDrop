@@ -1,27 +1,21 @@
 import express from "express";
-import fs from "node:fs";
-import { parse } from "csv-parse";
-import { finished } from "stream/promises";
+
+import buskRouter from "./routes/busk.js";
+import buskerUserRouter from "./routes/buskerUser.js";
+import eventRouter from "./routes/event.js";
+import userRouter from "./routes/user.js";
+import venueUserRouter from "./routes/venueUser.js";
 
 const PORT = 8888;
 
-async function readData() {
-  const records = [];
-  const parser = fs.createReadStream("../data/artist.csv").pipe(parse({}));
-  parser.on("readable", () => {
-    let record;
-    while ((record = parser.read()) !== null) {
-      records.push(record);
-    }
-  });
-
-  await finished(parser);
-  return records;
-}
-
 const app = express();
-app.listen(PORT, () => {
-  let data = readData();
+
+app.use("/busk", buskRouter);
+app.use("/buskerUser", buskerUserRouter);
+app.use("/event", eventRouter);
+app.use("/user", userRouter);
+app.use("/venueUser", venueUserRouter);
+
+app.listen(PORT, async () => {
   console.log("Server started successfully");
-  console.log(data);
 });
