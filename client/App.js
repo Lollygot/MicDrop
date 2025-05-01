@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from "react-native";
-import Mapbox from '@rnmapbox/maps';
+import React from 'react';
+import MapView from 'react-native-maps';
+import WebView from 'react-native-webview';
+import { StyleSheet, View } from 'react-native';
 
-const App = () => {
+export default function App() {
   return (
-    <View style={styles.page}>
-      <View style={styles.container}>
-        <Mapbox.MapView style={styles.map} />
-      </View>
-    </View>
-  );
-}
-
-export default App;
+    <WebView
+      originWhitelist={['*']}
+      source={{ html: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>' }}
+    />
+  )
+};
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   container: {
-    height: 300,
-    width: 300,
+    flex: 1,
   },
   map: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
+
+

@@ -18,12 +18,6 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Expo location to use your location."
         }
-      ],
-      [
-        "@rnmapbox/maps",
-        {
-          "RNMapboxMapsDownloadToken": "k.eyJ1IjoiZTU3ODA0bHoiLCJhIjoiY21hNWZ5aWZxMGkxZTJqcXpqYnQxZXBjbiJ9.snIP3jhuiVW6HMcZM4Fenw"
-        }
       ]
     ],
     "ios": {
