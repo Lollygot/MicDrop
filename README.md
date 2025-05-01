@@ -10,6 +10,14 @@ npm start
 cd server
 npm start
 
+To run on Expo Snack (snack.expo.dev):
+
+Import files
+Import the client folder (by dragging it onto the upload section)
+Move all files in the client folder into the root folder in the Expo Snack directory
+You may have to manually replace the contents of App.tsx
+You will have to manually replace the package.json contents but only copy over the "dependencies" attribute
+
 Login
 Account Creation
 
