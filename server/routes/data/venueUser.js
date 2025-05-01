@@ -1,6 +1,9 @@
 import { Router } from "express";
 
-import { addVenueUser, getVenueUserData } from "../controllers/venueUser.js";
+import {
+  addVenueUser,
+  getVenueUserData,
+} from "../../controllers/data/venueUser.js";
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import { getCSVData, parseCSVData } from "../utils/data.js";
+import { getCSVData, parseCSVData } from "../../utils/data.js";
 
 /**
  * Get all busk data

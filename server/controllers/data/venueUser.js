@@ -5,7 +5,7 @@ import {
   getCSVData,
   parseCSVData,
   writeCSVData,
-} from "../utils/data.js";
+} from "../../utils/data.js";
 
 /**
  * Add a new user as a venue
