@@ -1,0 +1,5 @@
+username,password,type
+Busk123,passwordButHashed,BUSKER
+Venue456,weAreAVenue,VENUE
+Test username,password123,BUSKER
+Test new venue,password12345,VENUE
