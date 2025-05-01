@@ -1,4 +1,8 @@
-import { getCSVData, parseCSVData } from "../utils/data.js";
+import { Router } from "express";
+
+import { getEventData } from "../../controllers/data/event.js";
+
+const router = Router();
 
 /**
  * Get all event data
@@ -25,6 +29,10 @@ import { getCSVData, parseCSVData } from "../utils/data.js";
  * duration is in minutes
  * ticketLink, eventImage & artistSpotify may be empty strings
  */
-export async function getEventData() {
-  return parseCSVData(await getCSVData("./data/event.csv"));
-}
+router.get("/", async (_req, res) => {
+  getEventData().then((data) => {
+    res.status(200).json(data);
+  });
+});
+
+export default router;

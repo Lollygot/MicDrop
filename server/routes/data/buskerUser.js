@@ -1,6 +1,9 @@
 import { Router } from "express";
 
-import { addBuskerUser, getBuskerUserData } from "../controllers/buskerUser.js";
+import {
+  addBuskerUser,
+  getBuskerUserData,
+} from "../../controllers/data/buskerUser.js";
 
 const router = Router();
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { getBuskData } from "../controllers/busk.js";
+import { getBuskData } from "../../controllers/data/busk.js";
 
 const router = Router();
 
