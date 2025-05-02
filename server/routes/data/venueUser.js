@@ -10,6 +10,7 @@ const router = Router();
 /**
  * Get all venue user data
  *
+ * 200 response
  * [
  *    {
  *      username: "...",
@@ -41,6 +42,8 @@ router.get("/", async (_req, res) => {
  * streetAddress
  * city
  * postCode
+ *
+ * 201 response
  */
 router.post("/new", async (req, res) => {
   addVenueUser(

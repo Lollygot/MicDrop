@@ -7,6 +7,8 @@ const router = Router();
 /**
  * Get all user data
  *
+ *
+ * 200 response
  * [
  *    {
  *      username: "...",
