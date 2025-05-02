@@ -5,10 +5,15 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Pin from './pin';
 import PopupForm from './pop';
+import Map from './Map'
+import Admin from './Admin'
 import { profile as userProfile } from './profiledata';
 
+const Stack = createNativeStackNavigator();
 export default function App() {
   const [pins, setPins] = useState([]);
   const [activePopupIndex, setActivePopupIndex] = useState(null);
@@ -20,6 +25,14 @@ export default function App() {
   const closePopups = () => setActivePopupIndex(null);
 
   return (
+    <>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Admin" component={Admin} />
+      </Stack.Navigator>
+    </NavigationContainer>
+
     <TouchableWithoutFeedback onPress={closePopups}>
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -44,6 +57,7 @@ export default function App() {
         </View>
       </View>
     </TouchableWithoutFeedback>
+    </>
   );
 }
 
