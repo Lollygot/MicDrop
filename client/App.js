@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState } from "react";
 
 import Admin from "./components/Admin.js";
 import BuskerRegistrationScreen from "./components/BuskerRegistrationScreen.js";
@@ -11,13 +11,17 @@ import AccountTypeSelectionScreen from "./components/AccountTypeSelectionScreen.
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [userType, setUserType] = useState("");
+
   return (
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Map">
           <Stack.Screen name="Map" component={Map} />
           <Stack.Screen name="Admin" component={Admin} />
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login">
+            {(props) => <LoginScreen {...props} setUserType={setUserType} />}
+          </Stack.Screen>
           <Stack.Screen
             name="BuskerRegistration"
             component={BuskerRegistrationScreen}

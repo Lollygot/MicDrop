@@ -9,25 +9,31 @@ import {
   View,
 } from "react-native";
 
-export default function LoginScreen() {
+export default function LoginScreen({ setUserType }) {
   const navigation = useNavigation();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const mockUsernameAndPassword = (username, password) => {
+    if (username === "TestBusker" && password === "Password") {
+      return "BUSKER";
+    } else if (username === "TestVenue" && password === "Password") {
+      return "VENUE";
+    } else {
+      return "";
+    }
+  };
+
   const handleLogin = () => {
     // TODO: findUserByUsernameAndPassword mock lost in merge
     // const user = findUserByUsernameAndPassword(username, password);
-    const user = true;
-    if (user) {
-      const token = {
-        id: user.id,
-        username: user.username,
-        userType: user.userType,
-      };
+    const userType = mockUsernameAndPassword(username, password);
+    setUserType(userType);
 
+    if (userType) {
       // Navigate to map page
-      navigation.navigate("Map", { token });
+      navigation.navigate("Map");
     } else {
       Alert.alert("Invalid login", "Incorrect username or password.");
     }
