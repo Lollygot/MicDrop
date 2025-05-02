@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Button,
   Image,
+  Pressable,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -69,35 +70,36 @@ export default function Map() {
           title={"Hammet"}
           description={"shreding around"}
         />
+        <Pressable onPress={closePopups}>
+          <View style={{ flex: 1 }}>
+            <View style={styles.alexContainer}>
+              {pins.map((pin, index) => (
+                <Pin
+                  key={index}
+                  data={pin}
+                  isActive={activePopupIndex === index}
+                  onPress={() =>
+                    setActivePopupIndex(activePopupIndex === index ? null : index)
+                  }
+                />
+              ))}
+              <PopupForm onSubmit={handleNewPin} />
+            </View>
+
+            <View style={styles.profilePicWrapper}>
+              <Image
+                source={{ uri: userProfile.profileIcon }}
+                style={styles.profilePic}
+              />
+            </View>
+          </View>
+        </Pressable>
       </MapView>
 
 
       {/* TODO: FROM ALEX'S CODE - has the logic from for creating new pins with a pop-up form and has a placeholder profile icon that has no interactivity - need to properly integrate as the buttons are currently hidden by the map - likely some CSS z-index issues */}
       {/* TODO: Link up the profile button/image to redirect to the registration/login/profile page */}
-      <TouchableWithoutFeedback onPress={closePopups}>
-        <View style={{ flex: 1 }}>
-          <View style={styles.alexContainer}>
-            {pins.map((pin, index) => (
-              <Pin
-                key={index}
-                data={pin}
-                isActive={activePopupIndex === index}
-                onPress={() =>
-                  setActivePopupIndex(activePopupIndex === index ? null : index)
-                }
-              />
-            ))}
-            <PopupForm onSubmit={handleNewPin} />
-          </View>
 
-          <View style={styles.profilePicWrapper}>
-            <Image
-              source={{ uri: userProfile.profileIcon }}
-              style={styles.profilePic}
-            />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
     </View>
   );
 }
@@ -111,12 +113,17 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "90%",
+    zIndex: 10
   },
   alexContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    paddingBottom: "65%",
+    position: 'absolute',
+    top: 700,
+    right: 5,
+    zIndex: 1000,
+    backgroundColor: 'white',
+    padding: 2,
+    borderRadius: 50,
+    elevation: 3,
   },
   profilePicWrapper: {
     position: "absolute",

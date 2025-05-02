@@ -8,6 +8,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import AccountTypeSelectionScreen from "./AccountTypeSelectionScreen";
 
 export default function LoginScreen({ setUserType }) {
   const navigation = useNavigation();
@@ -64,7 +65,7 @@ export default function LoginScreen({ setUserType }) {
       <Button title="Login" onPress={handleLogin} />
       <Button
         title="Create Account"
-        onPress={() => navigation.navigate("AccountTypeSelection")}
+        onPress={() => navigation.navigate("AccountTypeSelectionScreen")}
       />
     </View>
   );
