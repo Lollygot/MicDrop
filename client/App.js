@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  View,
-  TouchableWithoutFeedback,
-  StyleSheet,
   Image,
-} from 'react-native';
-import Pin from './pin';
-import PopupForm from './pop';
-import { profile as userProfile } from './profiledata';
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
+
+import Pin from "./components/Pin.js";
+import PopupForm from "./components/Pop.js";
+
+import { userProfile } from "./profileData.js";
 
 export default function App() {
   const [pins, setPins] = useState([]);
   const [activePopupIndex, setActivePopupIndex] = useState(null);
 
-  const handleNewPin = (newProfile) => {
-    setPins((prevPins) => [...prevPins, newProfile]);
+  const handleNewPin = (newData) => {
+    setPins([...pins, newData]);
   };
 
   const closePopups = () => setActivePopupIndex(null);
@@ -26,7 +28,7 @@ export default function App() {
           {pins.map((pin, index) => (
             <Pin
               key={index}
-              profile={pin}
+              data={pin}
               isActive={activePopupIndex === index}
               onPress={() =>
                 setActivePopupIndex(activePopupIndex === index ? null : index)
@@ -50,20 +52,20 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingBottom: '65%',
+    justifyContent: "flex-end",
+    alignItems: "center",
+    paddingBottom: "65%",
   },
   profilePicWrapper: {
-    position: 'absolute',
+    position: "absolute",
     top: 40,
     right: 20,
     zIndex: 1000,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 2,
     borderRadius: 50,
     elevation: 3,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
