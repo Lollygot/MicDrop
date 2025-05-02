@@ -19,7 +19,7 @@ export default function Admin() {
   }, []);
 
   const handlePress = async () => {
-    const url = "data.url";
+    const url = "https://www.sandbox.paypal.com/bizsignup/partner/entry?referralToken=MjcyNjQ4ZTItOWE0NS0[…]jTStmYXdYMVV4blpoRmFyczVVWkE0aWl1clBQRHd0dnRLZmFtYz12Mg==";
     const supported = await Linking.canOpenURL(url);
 
     if (supported) {

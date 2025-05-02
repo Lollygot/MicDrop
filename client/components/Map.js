@@ -40,7 +40,7 @@ export default function Map() {
 
   return (
     <View style={styles.container}>
-      {/*<Button title="Admin" onPress={() => navigation.navigate("Admin")} />*/}
+      <Button title="Admin" onPress={() => navigation.navigate("Admin")} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} />
       <MapView
         style={styles.map}
