@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
 import Admin from "./components/Admin.js";
-import Map from ".components/Map.js";
+import Map from "./components/Map.js";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
