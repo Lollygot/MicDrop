@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
+// TODO: double check with Hunain what screen this was meant to be for
+
 export default function BuskarHomeScreen({ route }) {
   const { token } = route.params;
 

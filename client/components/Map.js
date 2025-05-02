@@ -9,8 +9,8 @@ import {
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
 import { useNavigation } from "@react-navigation/native";
 
-import Pin from "./components/Pin.js";
-import PopupForm from "./components/Pop.js";
+import Pin from "./Pin.js";
+import PopupForm from "./Pop.js";
 
 const userProfile = {
   profileType: "venue", // or "busker"
@@ -71,6 +71,7 @@ export default function Map() {
       </MapView>
 
       {/* TODO: FROM ALEX'S CODE - has the logic from for creating new pins with a pop-up form and has a placeholder profile icon that has no interactivity - need to properly integrate as the buttons are currently hidden by the map - likely some CSS z-index issues */}
+      {/* TODO: Link up the profile button/image to redirect to the registration/login/profile page */}
       <TouchableWithoutFeedback onPress={closePopups}>
         <View style={{ flex: 1 }}>
           <View style={styles.alexContainer}>
