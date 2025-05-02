@@ -7,6 +7,7 @@ import BuskerRegistrationScreen from "./components/BuskerRegistrationScreen.js";
 import LoginScreen from "./components/LoginScreen.js";
 import Map from "./components/Map.js";
 import VenueRegistrationScreen from "./components/VenueRegistrationScreen.js";
+import AccountTypeSelectionScreen from "./components/AccountTypeSelectionScreen.js";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -24,6 +25,10 @@ export default function App() {
           <Stack.Screen
             name="VenueRegistration"
             component={VenueRegistrationScreen}
+          />
+          <Stack.Screen
+            name="AccountTypeSelection"
+            component={AccountTypeSelectionScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
