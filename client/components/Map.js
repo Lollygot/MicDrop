@@ -69,6 +69,7 @@ export default function Map() {
           }}
           title={"Hammet"}
           description={"shreding around"}
+
         />
         <Pressable onPress={closePopups}>
           <View style={{ flex: 1 }}>
@@ -94,6 +95,7 @@ export default function Map() {
             </View>
           </View>
         </Pressable>
+
       </MapView>
 
 
