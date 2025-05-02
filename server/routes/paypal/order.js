@@ -34,14 +34,16 @@ router.post("/capture", async (req, res) => {
  *
  * 201 response
  * {
- *    id: "..."
+ *    id: "...",
+ *    approvalLink: "..."
  * }
  */
 router.post("/new", async (req, res) => {
   createOrder(req.body.merchantId, req.body.value)
-    .then((orderId) => {
+    .then((data) => {
       res.status(201).json({
-        id: orderId,
+        id: data.id,
+        approvalLink: data.approvalLink,
       });
     })
     .catch((error) => {

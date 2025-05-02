@@ -33,7 +33,12 @@ export async function captureOrder(merchantId, orderId) {
 }
 
 /**
- * Creates an order for a merchantId of a value amount and returns the order ID
+ * Creates an order for a merchantId of a value amount
+ *
+ * {
+ *    id: "...",
+ *    approvalLink: "..."
+ * }
  */
 export async function createOrder(merchantId, value) {
   return getAccessToken()
@@ -91,8 +96,17 @@ export async function createOrder(merchantId, value) {
       }
     })
     .then((data) => {
-      console.log(JSON.stringify(data, null, 2));
-      return data.id;
+      let approvalLink;
+      data.links.forEach((link) => {
+        if (["payer-action", "approve"].includes(link.rel)) {
+          approvalLink = link.href;
+        }
+      });
+
+      return {
+        id: data.id,
+        approvalLink: approvalLink,
+      };
     });
 }
 
