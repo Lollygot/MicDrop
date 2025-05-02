@@ -44,8 +44,8 @@ export default function LoginScreen({ setUserType }) {
     <View style={styles.container}>
       <Image
         // TODO: micdrop.png asset was lost in merge
-        // source={require("./assets/micdrop.png")}
-        source=""
+        source={require("./assets/micdrop.png")}
+        // source=""
         style={styles.logo}
         resizeMode="contain"
       />
