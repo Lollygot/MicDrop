@@ -40,7 +40,7 @@ export default function Map({ userType }) {
 
   return (
     <View style={styles.container}>
-      {/*<Button title="Admin" onPress={() => navigation.navigate("Admin")} />*/}
+      <Button title="Admin" onPress={() => navigation.navigate("Admin")} />
       <Button title="Login" onPress={() => navigation.navigate("Login")} />
       <MapView
         style={styles.map}
@@ -69,6 +69,7 @@ export default function Map({ userType }) {
           }}
           title={"Hammet"}
           description={"shreding around"}
+
         />
         <Pressable onPress={closePopups}>
           <View style={{ flex: 1 }}>
@@ -100,6 +101,7 @@ export default function Map({ userType }) {
             </View>
           </View>
         </Pressable>
+
       </MapView>
 
       {/* TODO: FROM ALEX'S CODE - has the logic from for creating new pins with a pop-up form and has a placeholder profile icon that has no interactivity - need to properly integrate as the buttons are currently hidden by the map - likely some CSS z-index issues */}
