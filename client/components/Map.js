@@ -39,7 +39,8 @@ export default function Map() {
 
   return (
     <View style={styles.container}>
-      <Button title="Admin" onPress={() => navigation.navigate("Admin")} />
+      {/*<Button title="Admin" onPress={() => navigation.navigate("Admin")} />*/}
+      <Button title="Login" onPress={() => navigation.navigate("Login")} />
       <MapView
         style={styles.map}
         /*showsUserLocation={true} onUserLocationChange={locationChangedResult => console.log(locationChangedResult.*/
@@ -69,6 +70,7 @@ export default function Map() {
           description={"shreding around"}
         />
       </MapView>
+
 
       {/* TODO: FROM ALEX'S CODE - has the logic from for creating new pins with a pop-up form and has a placeholder profile icon that has no interactivity - need to properly integrate as the buttons are currently hidden by the map - likely some CSS z-index issues */}
       {/* TODO: Link up the profile button/image to redirect to the registration/login/profile page */}
