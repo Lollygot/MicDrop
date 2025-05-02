@@ -7,6 +7,7 @@ const router = Router();
 /**
  * Get all busk data
  *
+ * 200 response
  * [
  *    {
  *      username: "...",

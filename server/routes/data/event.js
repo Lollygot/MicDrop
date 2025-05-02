@@ -7,6 +7,7 @@ const router = Router();
 /**
  * Get all event data
  *
+ * 200 response
  * [
  *    {
  *      venueName: "...",

@@ -10,6 +10,7 @@ const router = Router();
 /**
  * Get all busker user data
  *
+ * 200 response
  * [
  *    {
  *      "username": "...",
@@ -48,6 +49,8 @@ router.get("/", async (_req, res) => {
  * lastName
  * email
  * image
+ *
+ * 201 response
  *
  * image should be a URL to the profile image
  * If no profile image, leave as an empty string

@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import {
-  View,
+  Button,
+  Image,
+  Linking,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  Image,
-  StyleSheet,
-  Button,
-  Linking,
-  TouchableWithoutFeedback,
+  View,
 } from "react-native";
 
-export default function Pin({ profile, isActive, onPress }) {
+const PIN_COLOURS = {
+  busker: "green",
+  bar: "purple",
+  default: "yellow",
+};
+
+export default function Pin({ data, isActive, onPress }) {
   // const [showPopup, setShowPopup] = useState(false);
 
   // const handlePress = () => setShowPopup(!showPopup);
   const openLink = (url) => url && Linking.openURL(url);
 
-  const pinColors = {
-    busker: "green",
-    bar: "purple",
-  };
-
-  const pinColor = pinColors[profile.profileType] || "yellow";
+  const pinColor = PIN_COLOURS[data.profileType] || PIN_COLOURS.default;
   const pinUrl = `https://maps.google.com/mapfiles/ms/icons/${pinColor}-dot.png`;
 
   const Header = () => (
     <>
-      <Image source={{ uri: profile.profileIcon }} style={styles.avatar} />
-      <Text style={styles.name}>{profile.profileName}</Text>
+      <Image source={{ uri: data.profileIcon }} style={styles.avatar} />
+      <Text style={styles.name}>{data.profileName}</Text>
     </>
   );
 
@@ -35,14 +35,14 @@ export default function Pin({ profile, isActive, onPress }) {
     <View style={styles.spotifyCard}>
       <View style={styles.spotifyTextBlock}>
         <Text numberOfLines={1} style={styles.trackRow}>
-          <Text style={styles.trackName}>{profile.trackName}</Text>
+          <Text style={styles.trackName}>{data.trackName}</Text>
           <Text style={styles.separator}> • </Text>
-          <Text style={styles.artistName}>{profile.trackArtist}</Text>
+          <Text style={styles.artistName}>{data.trackArtist}</Text>
         </Text>
         <View style={styles.previewWrapper}>
           <Text
             style={styles.playPreview}
-            onPress={() => openLink(profile.spotifyTrackUrl)}
+            onPress={() => openLink(data.spotifyTrackUrl)}
           >
             ▶️ Preview
           </Text>
@@ -51,47 +51,53 @@ export default function Pin({ profile, isActive, onPress }) {
     </View>
   );
 
-  const renderPopupContent = () => {
-    if (profile.profileType === "busker") {
-      return (
-        <>
-          <Header />
-          {profile.about && (
-            <Text style={styles.about}>
-              <Text style={styles.aboutLabel}>About me: </Text>
-              {profile.about}
+  const PopupContent = () => {
+    switch (data.profileType) {
+      case "busker": {
+        return (
+          <>
+            <Header />
+            {data.about && (
+              <Text style={styles.about}>
+                <Text style={styles.aboutLabel}>About me: </Text>
+                {data.about}
+              </Text>
+            )}
+            {/* TODO: replace with PP SDK button */}
+            {data.donateUrl && (
+              <Button title="Donate" onPress={() => openLink(data.donateUrl)} />
+            )}
+          </>
+        );
+      }
+      case "venue": {
+        return (
+          <>
+            <Header />
+            <Text style={[styles.info, { fontSize: 17, fontWeight: "bold" }]}>
+              🎤 Artist: {data.artistPlaying}
             </Text>
-          )}
-          {profile.donateUrl && (
-            <Button title="Donate" onPress={() => openLink(profile.donateUrl)} />
-          )}
-        </>
-      );
+            <Text style={styles.info}>Doors: {data.doors}</Text>
+            <Text style={styles.info}>📍 {data.address}</Text>
+            {data.trackCover && <SpotifyCard />}
+            {data.ticketLink && (
+              <Text
+                style={styles.link}
+                onPress={() => openLink(data.ticketLink)}
+              >
+                🎟 Buy Tickets {data.price ? `(${data.price})` : ""}
+              </Text>
+            )}
+            {data.bannerImage && (
+              <Image source={{ uri: data.bannerImage }} style={styles.banner} />
+            )}
+          </>
+        );
+      }
+      default: {
+        return <Text>Unknown creator profile type</Text>;
+      }
     }
-
-    if (profile.profileType === "bar") {
-      return (
-        <>
-          <Header />
-          <Text style={[styles.info, { fontSize: 17, fontWeight: "bold" }]}>
-            🎤 Artist: {profile.artistPlaying}
-          </Text>
-          <Text style={styles.info}>Doors: {profile.doors}</Text>
-          <Text style={styles.info}>📍 {profile.address}</Text>
-          {profile.trackCover && <SpotifyCard />}
-          {profile.ticketLink && (
-            <Text style={styles.link} onPress={() => openLink(profile.ticketLink)}>
-              🎟 Buy Tickets {profile.price ? `(${profile.price})` : ""}
-            </Text>
-          )}
-          {profile.bannerImage && (
-            <Image source={{ uri: profile.bannerImage }} style={styles.banner} />
-          )}
-        </>
-      );
-    }
-
-    return <Text>Unknown profile type</Text>;
   };
 
   return (
@@ -102,12 +108,13 @@ export default function Pin({ profile, isActive, onPress }) {
 
       {isActive && (
         <View style={styles.popupOverlay}>
-          <View style={styles.popup}>{renderPopupContent()}</View>
+          <View style={styles.popup}>
+            <PopupContent />
+          </View>
         </View>
       )}
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -237,4 +244,3 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 });
-
