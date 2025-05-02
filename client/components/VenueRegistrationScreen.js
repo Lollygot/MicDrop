@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 
 import { isStrongPassword, isValidEmail } from "../utils/validation.js";
 
-export default function VenueRegistrationScreen({ navigation }) {
+export default function VenueRegistrationScreen({ setUserType }) {
+  const navigation = useNavigation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [venueName, setVenueName] = useState("");
@@ -35,25 +38,27 @@ export default function VenueRegistrationScreen({ navigation }) {
     if (!isStrongPassword(password)) {
       Alert.alert(
         "Weak password",
-        "Password must be 8 characters long, with at least 2 numbers and 1 special character."
+        "Password must be at least 8 characters long, with at least 2 numbers and 1 special character."
       );
       return;
     }
 
-    const venueData = {
-      userType: "VENUE",
-      username,
-      password,
-      venueName,
-      streetAddress,
-      city,
-      postCode,
-      email,
-    };
+    // const venueData = {
+    //   userType: "VENUE",
+    //   username,
+    //   password,
+    //   venueName,
+    //   streetAddress,
+    //   city,
+    //   postCode,
+    //   email,
+    // };
 
     // TODO: addProfile mock was lost in merge
     // Add venue user to profile data
     // addProfile(venueData);
+
+    setUserType("VENUE");
 
     // Navigate back to map screen
     navigation.navigate("Map");

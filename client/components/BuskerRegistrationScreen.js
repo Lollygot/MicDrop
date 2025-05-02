@@ -4,7 +4,7 @@ import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
 
 import { isValidEmail, isStrongPassword } from "../utils/validation";
 
-export default function BuskerRegistrationScreen() {
+export default function BuskerRegistrationScreen({ setUserType }) {
   const navigation = useNavigation();
 
   const [username, setUsername] = useState("");
@@ -28,23 +28,25 @@ export default function BuskerRegistrationScreen() {
     if (!isStrongPassword(password)) {
       Alert.alert(
         "Weak password",
-        "Password must be 8 characters long, with at least 2 numbers and 1 special character."
+        "Password must be at least 8 characters long, with at least 2 numbers and 1 special character."
       );
       return;
     }
 
-    const userData = {
-      userType: "BUSKER",
-      username,
-      password,
-      firstName,
-      lastName,
-      email,
-    };
+    // const userData = {
+    //   userType: "BUSKER",
+    //   username,
+    //   password,
+    //   firstName,
+    //   lastName,
+    //   email,
+    // };
 
     // TODO: addProfile mock was lost in merge
     // Add user to profile data
     // addProfile(userData);
+
+    setUserType("BUSKER");
 
     // Navigate back to the map screen
     navigation.navigate("Map");
