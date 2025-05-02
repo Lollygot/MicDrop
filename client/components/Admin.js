@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Alert, Button, Linking, StyleSheet, View } from "react-native";
 import MapView, { Callout, Circle, Marker } from "react-native-maps";
 import WebView from "react-native-webview";
+import PayPalWebView from "./PayPal";
 
 
 
@@ -29,7 +30,12 @@ export default function Admin() {
     }
   };
 
-  return <Button title="Activate PayPal" onPress={handlePress} />;
+  return (
+    <View>
+      <Button title="Activate PayPal" onPress={handlePress} />
+      <Button title="PayPal Buttons" onPress={() => navigation.navigate("PayPal")} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
