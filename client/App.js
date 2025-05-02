@@ -17,7 +17,9 @@ export default function App() {
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Map">
-          <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen name="Map">
+            {(props) => <Map {...props} userType={userType} />}
+          </Stack.Screen>
           <Stack.Screen name="Admin" component={Admin} />
           <Stack.Screen name="Login">
             {(props) => <LoginScreen {...props} setUserType={setUserType} />}

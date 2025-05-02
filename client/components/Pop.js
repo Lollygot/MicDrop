@@ -17,7 +17,7 @@ const userProfile = {
   profileIcon: "https://i.pravatar.cc/100?u=bluenote",
 };
 
-export default function PopupForm({ onSubmit }) {
+export default function PopupForm({ userType }) {
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
@@ -27,8 +27,8 @@ export default function PopupForm({ onSubmit }) {
   const [address, setAddress] = useState("");
   const [ticketLink, setTicketLink] = useState("");
 
-  const isBusker = userProfile.profileType === "busker";
-  const isBar = userProfile.profileType === "venue";
+  const isBusker = userType === "BUSKER";
+  const isBar = userType === "VENUE";
 
   const resetForm = () => {
     setName("");
@@ -59,7 +59,7 @@ export default function PopupForm({ onSubmit }) {
       price: "",
     };
 
-    onSubmit?.(newProfile);
+    // onSubmit?.(newProfile);
     resetForm();
     setVisible(false);
   };

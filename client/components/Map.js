@@ -23,7 +23,7 @@ function createMarker(latitude, longitude) {
   return { latitude: latitude, longitude: longitude };
 }
 
-export default function Map() {
+export default function Map({ userType }) {
   const navigation = useNavigation();
 
   const currentLocation = createMarker(53.41703705782808, -6.477156594752852);
@@ -79,16 +79,22 @@ export default function Map() {
                   data={pin}
                   isActive={activePopupIndex === index}
                   onPress={() =>
-                    setActivePopupIndex(activePopupIndex === index ? null : index)
+                    setActivePopupIndex(
+                      activePopupIndex === index ? null : index
+                    )
                   }
                 />
               ))}
-              <PopupForm onSubmit={handleNewPin} />
+              {userType && <PopupForm userType={userType} />}
             </View>
 
             <View style={styles.profilePicWrapper}>
               <Image
-                source={{ uri: userProfile.profileIcon }}
+                source={{
+                  uri: userType
+                    ? userProfile.profileIcon
+                    : "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+                }}
                 style={styles.profilePic}
               />
             </View>
@@ -96,10 +102,8 @@ export default function Map() {
         </Pressable>
       </MapView>
 
-
       {/* TODO: FROM ALEX'S CODE - has the logic from for creating new pins with a pop-up form and has a placeholder profile icon that has no interactivity - need to properly integrate as the buttons are currently hidden by the map - likely some CSS z-index issues */}
       {/* TODO: Link up the profile button/image to redirect to the registration/login/profile page */}
-
     </View>
   );
 }
@@ -113,14 +117,14 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "90%",
-    zIndex: 10
+    zIndex: 10,
   },
   alexContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 700,
     right: 5,
     zIndex: 1000,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 2,
     borderRadius: 50,
     elevation: 3,
