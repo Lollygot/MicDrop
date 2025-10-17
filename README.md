@@ -1,3 +1,5 @@
+Done as part of a 24 hour hackathon (forked as contributions were made from my corporate GitHub account, not personal)
+
 # micdrop
 
 To run:
